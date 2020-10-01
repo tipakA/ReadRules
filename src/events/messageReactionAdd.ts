@@ -13,8 +13,9 @@ async function messageReactionAddEvent(client: ReadRulesClient, reaction: Messag
   if (!member) return console.error('Member who reacted could not be fetched!');
 
   if (member.roles.cache.has(constants.ids.gating.joinRole)) {
+    const time = Date.now() - member.joinedTimestamp!;
     await member.roles.remove(constants.ids.gating.joinRole);
-    await client.logChannel?.send(`${user} unlocked access to the server.`);
+    await client.logChannel?.send(`${user} unlocked access to the server after \`${(time / 1000 / 3600).toFixed(1)}\` hours.`);
   }
 }
 
