@@ -1,3 +1,7 @@
+# 0.4.0
+
+- Added time counting between someone joining and verifying.
+
 # 0.3.0
 
 - Removed `messageCacheLifetime` and `messageSweepInterval` client options
