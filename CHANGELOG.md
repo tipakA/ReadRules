@@ -1,3 +1,7 @@
+# 0.5.0
+
+- Added more time formats, since `0.0 hours` isn't very descriptive.
+
 # 0.4.0
 
 - Added time counting between someone joining and verifying.
