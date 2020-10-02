@@ -14,8 +14,16 @@ async function messageReactionAddEvent(client: ReadRulesClient, reaction: Messag
 
   if (member.roles.cache.has(constants.ids.gating.joinRole)) {
     const time = Date.now() - member.joinedTimestamp!;
+    const seconds = time / 1000;
+    const minutes = seconds / 60;
+
+    let after: string;
+    if (minutes >= 60) after = `${(minutes / 60).toFixed(1)} hours`;
+    else if (seconds >= 60) after = `${(seconds / 60).toFixed(1)} minutes`;
+    else after = `${seconds.toFixed(1)} seconds`;
+
     await member.roles.remove(constants.ids.gating.joinRole);
-    await client.logChannel?.send(`${user} unlocked access to the server after \`${(time / 1000 / 3600).toFixed(1)}\` hours.`);
+    await client.logChannel?.send(`${user} unlocked access to the server after \`${after}\`.`);
   }
 }
 
