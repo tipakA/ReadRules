@@ -9,8 +9,8 @@ async function readyEvent(client: ReadRulesClient) {
   const rulesChannel = client.channels.cache.get(constants.ids.gating.rulesChannel) as TextChannel | undefined;
   if (!rulesChannel) return console.error('No rulesChannel found!');
 
-  const logChannel = client.channels.cache.get(constants.ids.userlogChannel) as TextChannel | undefined;
-  client.logChannel = logChannel ? logChannel : null;
+  const logChannel = client.channels.cache.get(constants.ids.userlogChannel) as TextChannel;
+  client.logChannel = logChannel ?? null;
   if (!client.logChannel) console.error('No userlogChannel found!');
 
   await rulesChannel.messages.fetch(constants.ids.gating.rulesMessage);
