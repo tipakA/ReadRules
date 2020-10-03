@@ -1,3 +1,7 @@
+# 0.5.1
+
+- Small code fix
+
 # 0.5.0
 
 - Added more time formats, since `0.0 hours` isn't very descriptive.
