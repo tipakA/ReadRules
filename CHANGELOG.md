@@ -1,3 +1,8 @@
+# 0.6.0
+
+- Added failure reaction feature
+  - Bot kicks if someone reacts with incorrect emote. Works best when set up as a bait for quick glances.
+
 # 0.5.1
 
 - Small code fix
