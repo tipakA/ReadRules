@@ -1,3 +1,7 @@
+# 0.6.2
+
+- Added version getter to main class.
+
 # 0.6.1
 
 - Reordered returns in `messageReactionAdd` event to avoid unnecessary running.
