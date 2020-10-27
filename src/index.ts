@@ -15,6 +15,11 @@ export default class ReadRulesClient extends Client {
   #logChannel: TextChannel | null = null;
   public commands = new Collection<string, Command>();
 
+  public get version(): string {
+    const p = require('../../package.json'); // eslint-disable-line global-require
+    return p.version;
+  }
+
   public get logChannel() {
     return this.#logChannel;
   }
