@@ -1,3 +1,10 @@
+# 0.6.1
+
+- Reordered returns in `messageReactionAdd` event to avoid unnecessary running.
+- Added kick skipping
+  - Avoids errors with permission check
+  - Skips members with `MANAGE_GUILD` and bot owner
+
 # 0.6.0
 
 - Added failure reaction feature
