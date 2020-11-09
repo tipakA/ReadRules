@@ -1,5 +1,10 @@
 # Changelog
 
+### 0.6.3
+
+- Added a recent reaction tracking
+  - Should avoid errors from fetching already kicked members, happening when user quickly reacts with multiple reactions.
+
 ### 0.6.2
 
 - Added version getter to main class.
