@@ -2,16 +2,21 @@ import { MessageReaction, User } from 'discord.js';
 import constants from '../util/constants';
 import { Event } from '../util/interfaces';
 import ReadRulesClient from '../index';
+import { removeRecent } from '../util/util';
 
 async function messageReactionAddEvent(client: ReadRulesClient, reaction: MessageReaction, user: User) {
   if (reaction.message.guild?.id !== constants.ids.gating.guild) return;
   if (reaction.message.id !== constants.ids.gating.rulesMessage) return;
+  if (client.recentReactions.has(user.id)) return;
 
   const emojis = constants.ids.gating.emoji.fail.concat(constants.ids.gating.emoji.pass);
   if (!emojis.includes(reaction.emoji.name)) return;
 
-  const member = await reaction.message.guild!.members.fetch(user);
+  const member = await reaction.message.guild!.members.fetch(user).catch(console.error);
   if (!member) return console.error('Member who reacted could not be fetched!');
+
+  client.recentReactions.add(user.id);
+  client.setTimeout(removeRecent, constants.reactCooldown, client, user.id);
 
   const time = Date.now() - member.joinedTimestamp!;
   const seconds = time / 1000;

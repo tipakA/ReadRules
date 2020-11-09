@@ -1,4 +1,4 @@
-import { Client, Collection, TextChannel } from 'discord.js';
+import { Client, Collection, Snowflake, TextChannel } from 'discord.js';
 import { Command, Event } from './util/interfaces';
 import { ls } from './util/util';
 require('dotenv').config();
@@ -13,7 +13,16 @@ export default class ReadRulesClient extends Client {
   }
 
   #logChannel: TextChannel | null = null;
-  public commands = new Collection<string, Command>();
+  #commands = new Collection<string, Command>();
+  #recentReactions = new Set<Snowflake>();
+
+  public get commands() {
+    return this.#commands;
+  }
+
+  public get recentReactions() {
+    return this.#recentReactions;
+  }
 
   public get version(): string {
     const p = require('../../package.json'); // eslint-disable-line global-require

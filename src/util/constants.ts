@@ -15,6 +15,7 @@ const constants = {
     userlogChannel: '595538665774776370',
   },
   prefix: 'rules+',
+  reactCooldown: 1500,
 };
 
 export default constants;
