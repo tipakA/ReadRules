@@ -1,5 +1,10 @@
 # Changelog
 
+### 0.7.1
+
+- Moved reaction removal code above checks for recent reaction
+  - Fixes not removing spammed reactions.
+
 ### 0.7.0
 
 - Added option for automatic reaction removal, to avoid polluting reaction counts.

@@ -1,6 +1,6 @@
 {
   "name": "ReadRules",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "ReadRules",
   "main": "build/src/index.js",
   "scripts": {
