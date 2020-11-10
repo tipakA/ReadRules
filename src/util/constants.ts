@@ -16,6 +16,7 @@ const constants = {
   },
   prefix: 'rules+',
   reactCooldown: 1500,
+  removeReactions: true,
 };
 
 export default constants;

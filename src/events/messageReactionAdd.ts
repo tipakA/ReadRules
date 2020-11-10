@@ -39,6 +39,7 @@ async function messageReactionAddEvent(client: ReadRulesClient, reaction: Messag
     await member.roles.remove(constants.ids.gating.joinRole);
     await client.logChannel?.send(`${user} unlocked access to the server after \`${after}\`.`);
   }
+  if (constants.removeReactions) await reaction.users.remove(user);
 }
 
 const event: Event = {
