@@ -7,6 +7,7 @@ import { removeRecent } from '../util/util';
 async function messageReactionAddEvent(client: ReadRulesClient, reaction: MessageReaction, user: User) {
   if (reaction.message.guild?.id !== constants.ids.gating.guild) return;
   if (reaction.message.id !== constants.ids.gating.rulesMessage) return;
+  if (constants.reactions.autoRemove) reaction.users.remove(user);
   if (client.recentReactions.has(user.id)) return;
 
   const emojis = constants.ids.gating.emoji.fail.concat(constants.ids.gating.emoji.pass);
@@ -39,7 +40,6 @@ async function messageReactionAddEvent(client: ReadRulesClient, reaction: Messag
     await member.roles.remove(constants.ids.gating.joinRole);
     await client.logChannel?.send(`${user} unlocked access to the server after \`${after}\`.`);
   }
-  if (constants.reactions.autoRemove) await reaction.users.remove(user);
 }
 
 const event: Event = {
