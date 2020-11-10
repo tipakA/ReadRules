@@ -14,9 +14,12 @@ const constants = {
     owner: '245867108582293504',
     userlogChannel: '595538665774776370',
   },
+  reactions: {
+    cooldown: 1500,
+    autoRemove: true,
+    autoReact: true,
+  },
   prefix: 'rules+',
-  reactCooldown: 1500,
-  removeReactions: true,
 };
 
 export default constants;
