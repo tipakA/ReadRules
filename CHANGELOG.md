@@ -1,5 +1,10 @@
 # Changelog
 
+### 0.7.0
+
+- Added option for automatic reaction removal, to avoid polluting reaction counts.
+- Added option for automatic reactions on new rule messages.
+
 ### 0.6.3
 
 - Added a recent reaction tracking
