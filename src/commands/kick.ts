@@ -14,7 +14,9 @@ async function kickCommand(message: Message, args: string[]): Promise<Message> {
   if (!members) throw '[COMMAND][KICK] Couldn\'t get Joined role members.';
 
   const date = new Date(Date.now() - time);
-  const membersToKick = members.filter(member => date >= member.joinedAt!);
+  const membersToKick = members.filter(member => {
+    return !constants.ids.kicking.safeRoles.some(id => member.roles.cache.has(id)) && date >= member.joinedAt!;
+  });
 
   let batch: Array<GuildMember>;
   if (membersToKick.size > constants.kicking.batchSize) batch = membersToKick.first(constants.kicking.batchSize);

@@ -17,10 +17,13 @@ async function prekickCommand(message: Message, args: string[]): Promise<Message
     fetched = true;
   }
 
-  const tooLongCount = members.filter(member => date >= member.joinedAt!).size;
+  const membersToKick = members.filter(member => {
+    return !constants.ids.kicking.safeRoles.some(id => member.roles.cache.has(id)) && date >= member.joinedAt!;
+  });
+
   const output = fetched ?
-    `Fetched (${cachedCount} => ${count}, ${tooLongCount})` :
-    `OK (${cachedCount}, ${tooLongCount})`;
+    `Fetched (${cachedCount} => ${count}, ${membersToKick.size})` :
+    `OK (${cachedCount}, ${membersToKick.size})`;
 
   return message.channel.send(output);
 }
