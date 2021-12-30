@@ -1,5 +1,10 @@
 # Changelog
 
+### 0.8.0
+
+- Added `kick` and `prekick` commands
+  - Kicks members with the role that are on the server for longer than specified, optionally checking roles members have.
+
 ### 0.7.1
 
 - Moved reaction removal code above checks for recent reaction
