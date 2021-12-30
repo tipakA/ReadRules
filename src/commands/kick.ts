@@ -1,4 +1,4 @@
-import { Collection, GuildMember, Message } from 'discord.js';
+import { GuildMember, Message } from 'discord.js';
 import { Command } from '../util/interfaces';
 import constants from '../util/constants';
 import { wait } from '../util/util';
@@ -10,7 +10,7 @@ async function kickCommand(message: Message, args: string[]): Promise<Message> {
 
   const output: Array<string> = [];
 
-  const members = message.guild!.roles.cache.get('758926599952924723')?.members;
+  const members = message.guild!.roles.cache.get(constants.ids.gating.joinRole)?.members;
   if (!members) throw '[COMMAND][KICK] Couldn\'t get Joined role members.';
 
   const date = new Date(Date.now() - time);
@@ -19,6 +19,8 @@ async function kickCommand(message: Message, args: string[]): Promise<Message> {
   let batch: Array<GuildMember>;
   if (membersToKick.size > constants.kicking.batchSize) batch = membersToKick.first(constants.kicking.batchSize);
   else batch = [...membersToKick.values()];
+
+  await message.channel.send(`Kicking ${batch.length} members out of ${membersToKick.size} possible members.\nEstimated time: ${delay * batch.length / 1000} seconds...`);
 
   let shouldWaitCounter = 1;
   let shouldWait = delay && shouldWaitCounter < batch.length;
@@ -36,6 +38,7 @@ async function kickCommand(message: Message, args: string[]): Promise<Message> {
     await member.send('You were kicked from `Bongo\'s Den` for inactivity.')
       .then(() => output.push(`${member.toString()} +DM; \`${timePassed}\``))
       .catch(() => output.push(`${member.toString()} -DM; \`${timePassed}\``));
+    await member.kick('manual kick for inactivity.');
 
     if (shouldWait) {
       shouldWait = ++shouldWaitCounter < batch.length;
