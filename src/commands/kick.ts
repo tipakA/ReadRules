@@ -20,6 +20,9 @@ async function kickCommand(message: Message, args: string[]): Promise<Message> {
   if (membersToKick.size > constants.kicking.batchSize) batch = membersToKick.first(constants.kicking.batchSize);
   else batch = [...membersToKick.values()];
 
+  if (message.guild.memberCount !== message.guild.members.cache.size) {
+    await message.channel.send(`⚠️ Mismatch between memberCount (${message.guild.memberCount}) and cache (${message.guild.members.cache.size}) ⚠️`);
+  }
   await message.channel.send(`Kicking ${batch.length} members out of ${membersToKick.size} possible members.\nEstimated time: ${delay * batch.length / 1000} seconds...`);
 
   let shouldWaitCounter = 1;
