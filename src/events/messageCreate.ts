@@ -38,7 +38,7 @@ function messageEvent(client: ReadRulesClient, message: Message) {
 
 const event: Event = {
   run: messageEvent,
-  type: 'message',
+  type: 'messageCreate',
 };
 
 export default event;
