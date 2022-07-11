@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.9.2
+
+- Fixed `X-newRulesMessage.ts` using `message` event instead of `messageCreate`.
+
 ### 0.9.1
 
 - Fixed incorrectly placed newline in `eval` output.
