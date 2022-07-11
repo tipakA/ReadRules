@@ -23,7 +23,7 @@ async function evalCommand(message: Message, args: string[]) {
   try {
     const evaled = eval(code);
     const cleaned = await clear(message.client as ReadRulesClient, evaled);
-    const wrapped = `\`\`\`js${cleaned}\n\`\`\``;
+    const wrapped = `\`\`\`js\n${cleaned}\`\`\``;
 
     if (wrapped.length <= 2000) await message.channel.send(wrapped);
     else {
@@ -33,7 +33,7 @@ async function evalCommand(message: Message, args: string[]) {
 
   } catch (err) {
     const cleaned = await clear(message.client as ReadRulesClient, err);
-    const wrapped = `\`\`\`js${cleaned}\n\`\`\``;
+    const wrapped = `\`\`\`js\n${cleaned}\`\`\``;
 
     if (wrapped.length <= 2000) await message.channel.send(wrapped);
     else {
