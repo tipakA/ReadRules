@@ -1,4 +1,4 @@
-import { Client, Collection, Snowflake, TextChannel } from 'discord.js';
+import { Client, Collection, Intents, Options, Snowflake, TextChannel } from 'discord.js';
 import { Command, Event } from './util/interfaces';
 import { ls } from './util/util';
 require('dotenv').config();
@@ -6,9 +6,11 @@ require('dotenv').config();
 export default class ReadRulesClient extends Client {
   public constructor() {
     super({
-      messageCacheMaxSize: 20,
       // All intents
-      ws: { intents: 32767 },
+      intents: Object.values(Intents.FLAGS).reduce((a, b) => a + b, 0),
+      makeCache: Options.cacheWithLimits({
+        MessageManager: 20,
+      }),
     });
   }
 
