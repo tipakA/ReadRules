@@ -1,6 +1,7 @@
+/* eslint-disable no-inline-comments */
+import { Message, MessageAttachment } from 'discord.js';
 import { Command } from '../util/interfaces';
 import { inspect } from 'util';
-import { Message } from 'discord.js';
 import ReadRulesClient from '../index';
 
 const Discord = require('discord.js'); // eslint-disable-line no-unused-vars
@@ -14,17 +15,34 @@ async function clear(client: ReadRulesClient, input: any) {
     .replace(client.token!, '👌😂💯😂😂💯😂👌😂💯💯👌');
 }
 
-async function evalCommand(message: Message, args: string[]): Promise<Message> {
+async function evalCommand(message: Message, args: string[]) {
   const client = message.client; // eslint-disable-line no-unused-vars
   const code = args.join(' ');
-  let cleaned;
+  let ret = message; // Promise<Message> afterall
+
   try {
     const evaled = eval(code);
-    cleaned = await clear(message.client as ReadRulesClient, evaled);
+    const cleaned = await clear(message.client as ReadRulesClient, evaled);
+    const wrapped = `\`\`\`js${cleaned}\n\`\`\``;
+
+    if (wrapped.length <= 2000) await message.channel.send(wrapped);
+    else {
+      const file = new MessageAttachment(Buffer.from(cleaned), 'out.js');
+      ret = await message.channel.send({ files: [file] });
+    }
+
   } catch (err) {
-    cleaned = await clear(message.client as ReadRulesClient, err);
+    const cleaned = await clear(message.client as ReadRulesClient, err);
+    const wrapped = `\`\`\`js${cleaned}\n\`\`\``;
+
+    if (wrapped.length <= 2000) await message.channel.send(wrapped);
+    else {
+      const file = new MessageAttachment(Buffer.from(cleaned), 'out.js');
+      ret = await message.channel.send({ files: [file] });
+    }
   }
-  return message.channel.send(cleaned, { code: 'js' }).catch(() => message);
+
+  return ret;
 }
 
 /* eslint-disable sort-keys */
