@@ -3,7 +3,7 @@ import { Command } from '../util/interfaces';
 import constants from '../util/constants';
 import { wait } from '../util/util';
 
-async function kickCommand(message: Message, args: string[]): Promise<Message> {
+async function kickCommand(message: Message, args: string[]): Promise<Message> { // eslint-disable-line no-unused-vars
   if (message.guild?.id !== constants.ids.gating.guild) return message.channel.send('This command is restricted to a server that is not this one.');
   const time = constants.kicking.kickTimeInHours * 3600 * 1000;
   const delay = constants.kicking.delays.kick;
