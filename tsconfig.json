@@ -1,16 +1,19 @@
 {
   "compilerOptions": {
     "incremental": true,
-    "target": "ES2019",
+    "target": "ES2021",
     "module": "commonjs",
     "sourceMap": true,
     "outDir": "./build",
     "composite": true,
     "removeComments": false,
     "strict": true,
+    "exactOptionalPropertyTypes": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "sourceRoot": "./",
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+
+    "skipLibCheck": true
   }
 }
