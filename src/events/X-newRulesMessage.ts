@@ -14,7 +14,7 @@ async function newRulesMessage(client: ReadRulesClient, message: Message) {
 
 const event: Event = {
   run: newRulesMessage,
-  type: 'message',
+  type: 'messageCreate',
 };
 
 export default event;
