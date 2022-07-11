@@ -1,5 +1,11 @@
 # Changelog
 
+### 0.9.0
+
+- Moved to discord.js v13 to avoid monkey-patching fixes for discord's great™️ ideas.
+- Updated other dependencies.
+- Improved error handling on couple of places to avoid potential downtime during recovery.
+
 ### 0.8.0
 
 - Added `kick` and `prekick` commands
