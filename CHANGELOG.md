@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.9.1
+
+- Fixed incorrectly placed newline in `eval` output.
+
 ### 0.9.0
 
 - Moved to discord.js v13 to avoid monkey-patching fixes for discord's great™️ ideas.
