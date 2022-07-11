@@ -14,7 +14,7 @@ function messageEvent(client: ReadRulesClient, message: Message) {
   const command = client.commands.get(cmd);
   if (!command) return;
 
-  if (command.guildOnly && message.channel.type === 'dm') return message.channel.send('This command can only be used in guilds.');
+  if (command.guildOnly && message.channel.type === 'DM') return message.channel.send('This command can only be used in guilds.');
 
   if (command.ownerOnly && message.author.id !== constants.ids.owner) {
     if (command.ownerSilentError) return;
@@ -27,7 +27,7 @@ function messageEvent(client: ReadRulesClient, message: Message) {
       return message.channel.send([
         'You do not have all permissions required to use this command.',
         `Missing: ${perms.map(perm => `\`${perm}\``).join(', ')}`,
-      ]);
+      ].join('\n'));
     }
   }
 
