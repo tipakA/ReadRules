@@ -7,17 +7,22 @@ import { removeRecent } from '../util/util';
 async function messageReactionAddEvent(client: ReadRulesClient, reaction: MessageReaction, user: User) {
   if (reaction.message.guild?.id !== constants.ids.gating.guild) return;
   if (reaction.message.id !== constants.ids.gating.rulesMessage) return;
-  if (constants.reactions.autoRemove) reaction.users.remove(user);
+  if (constants.reactions.autoRemove) reaction.users.remove(user).catch(err => console.error('Could not remove added reaction:', err));
   if (client.recentReactions.has(user.id)) return;
 
   const emojis = constants.ids.gating.emoji.fail.concat(constants.ids.gating.emoji.pass);
+  if (reaction.emoji.name === null) {
+    console.log('Got null name reaction emoji');
+    console.log({ emoji: reaction.emoji });
+    return;
+  }
   if (!emojis.includes(reaction.emoji.name)) return;
 
-  const member = await reaction.message.guild!.members.fetch(user).catch(console.error);
-  if (!member) return console.error('Member who reacted could not be fetched!');
+  const member = await reaction.message.guild!.members.fetch(user).catch(err => console.error('Could not fetch reaction member:', err));
+  if (!member) return;
 
   client.recentReactions.add(user.id);
-  client.setTimeout(removeRecent, constants.reactions.cooldown, client, user.id);
+  setTimeout(removeRecent, constants.reactions.cooldown, client, user.id);
 
   const time = Date.now() - member.joinedTimestamp!;
   const seconds = time / 1000;
@@ -33,11 +38,11 @@ async function messageReactionAddEvent(client: ReadRulesClient, reaction: Messag
     try {
       await user.send('Sorry, but you did not read the rules properly.');
     } catch {} finally { // eslint-disable-line no-empty
-      await member.kick('failed the check');
+      await member.kick('failed the check').catch(err => console.error('Could not kick the member:', err));
       await client.logChannel?.send(`${user} failed to react with proper emote after \`${after}\`.`);
     }
   } else if (constants.ids.gating.emoji.pass.includes(reaction.emoji.name)) {
-    await member.roles.remove(constants.ids.gating.joinRole);
+    await member.roles.remove(constants.ids.gating.joinRole).catch(err => console.error('Could not remove join role:', err));
     await client.logChannel?.send(`${user} unlocked access to the server after \`${after}\`.`);
   }
 }
