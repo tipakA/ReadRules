@@ -13,7 +13,5 @@
     "esModuleInterop": true,
     "sourceRoot": "./",
     "forceConsistentCasingInFileNames": true,
-
-    "skipLibCheck": true
   }
 }
