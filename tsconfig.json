@@ -5,13 +5,13 @@
     "module": "commonjs",
     "sourceMap": true,
     "outDir": "./build",
+    "rootDir": "./",
     "composite": true,
     "removeComments": false,
     "strict": true,
     "exactOptionalPropertyTypes": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "sourceRoot": "./",
     "forceConsistentCasingInFileNames": true,
   }
 }
