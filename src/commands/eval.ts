@@ -15,14 +15,13 @@ async function clear(client: ReadRulesClient, input: any) {
     .replace(client.token!, '👌😂💯😂😂💯😂👌😂💯💯👌');
 }
 
-async function evalCommand(message: Message, args: string[]) {
-  const client = message.client; // eslint-disable-line no-unused-vars
+async function evalCommand(client: ReadRulesClient, message: Message, args: string[]) {
   const code = args.join(' ');
   let ret = message; // Promise<Message> afterall
 
   try {
     const evaled = eval(code);
-    const cleaned = await clear(message.client as ReadRulesClient, evaled);
+    const cleaned = await clear(client, evaled);
     const wrapped = `\`\`\`js\n${cleaned}\`\`\``;
 
     if (wrapped.length <= 2000) await message.channel.send(wrapped);
@@ -32,7 +31,7 @@ async function evalCommand(message: Message, args: string[]) {
     }
 
   } catch (err) {
-    const cleaned = await clear(message.client as ReadRulesClient, err);
+    const cleaned = await clear(client, err);
     const wrapped = `\`\`\`js\n${cleaned}\`\`\``;
 
     if (wrapped.length <= 2000) await message.channel.send(wrapped);

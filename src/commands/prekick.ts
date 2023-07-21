@@ -1,8 +1,9 @@
 import { Command } from '../util/interfaces';
 import constants from '../util/constants';
 import { Message } from 'discord.js';
+import ReadRulesClient from '..';
 
-async function prekickCommand(message: Message, args: string[]): Promise<Message> {
+async function prekickCommand(client: ReadRulesClient, message: Message, args: string[]): Promise<Message> {
   const time = constants.kicking.kickTimeInHours * 3600 * 1000;
   const count = message.guild!.memberCount;
   const cachedCount = message.guild!.members.cache.size;

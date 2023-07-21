@@ -2,7 +2,7 @@ import { Message, PermissionString, Snowflake } from 'discord.js';
 import ReadRulesClient from '..';
 
 export interface Command {
-  run(message: Message, args: string[]): Message | Promise<Message>;
+  run(client: ReadRulesClient, message: Message, args: string[]): Message | Promise<Message>;
   name: string;
   aliases: string[];
   category: string;

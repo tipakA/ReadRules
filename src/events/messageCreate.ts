@@ -33,7 +33,7 @@ function messageEvent(client: ReadRulesClient, message: Message) {
 
   if (command.args && !args.length) return message.reply('this command requires args.');
 
-  command.run(message, args);
+  command.run(client, message, args);
 }
 
 const event: Event = {
