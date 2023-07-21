@@ -1,4 +1,4 @@
-import { Client, Collection, Intents, Options, Snowflake, TextChannel } from 'discord.js';
+import { Client, Collection, GuildMember, Intents, Options, Snowflake, TextChannel } from 'discord.js';
 import { Command, Event } from './util/interfaces';
 import { ls } from './util/util';
 require('dotenv').config();
@@ -17,6 +17,11 @@ export default class ReadRulesClient extends Client {
   #logChannel: TextChannel | null = null;
   #commands = new Collection<string, Command>();
   #recentReactions = new Set<Snowflake>();
+  #mismatch = {
+    oldCollection: new Collection<Snowflake, GuildMember>(),
+    newCollection: new Collection<Snowflake, GuildMember>(),
+    difference: new Collection<Snowflake, GuildMember>(),
+  }
 
   public get commands() {
     return this.#commands;
@@ -24,6 +29,10 @@ export default class ReadRulesClient extends Client {
 
   public get recentReactions() {
     return this.#recentReactions;
+  }
+
+  public get mismatch() {
+    return this.#mismatch;
   }
 
   public get version(): string {
