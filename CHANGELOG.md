@@ -1,5 +1,12 @@
 # Changelog
 
+### 0.10.0
+
+- Added `client` argument to command functions, allowing cleaner access to properties defined on `ReadRulesClient`.
+- Added `mismatch` command to help debug cache mismatches.
+- Updated all dependencies.
+- Switched target node to 18.
+
 ### 0.9.2
 
 - Fixed `X-newRulesMessage.ts` using `message` event instead of `messageCreate`.
