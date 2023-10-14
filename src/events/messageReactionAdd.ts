@@ -18,8 +18,11 @@ async function messageReactionAddEvent(client: ReadRulesClient, reaction: Messag
   }
   if (!emojis.includes(reaction.emoji.name)) return;
 
-  const member = await reaction.message.guild!.members.fetch(user).catch(err => console.error('Could not fetch reaction member:', err));
-  if (!member) return;
+  const member = reaction.message.guild!.members.cache.get(user.id);
+  if (!member) {
+    console.error(`Reacting member ${user.id} could not be found in cache.`);
+    return;
+  };
 
   client.recentReactions.add(user.id);
   setTimeout(removeRecent, constants.reactions.cooldown, client, user.id);
